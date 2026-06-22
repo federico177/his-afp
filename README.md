@@ -126,3 +126,6 @@ Allinterno della cartella `docs/` sono presenti documenti dettagliati riguardant
 # Licenza
 
 Questo progetto è concesso in licenza sotto la Licenza MIT - vedere il file [LICENSE](LICENSE) per i dettagli.
+
+## Documentazione Esame
+Per l'analisi dettagliata della migrazione e la guida ai test della Task 1, consulta la [Relazione Tecnica sulla Migrazione Architetturale](docs/MIGRAZIONE_ARCHITETTURALE.md).
