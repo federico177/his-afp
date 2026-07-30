@@ -1,0 +1,114 @@
+<p-fieldset legend="Ricerca Paziente Storico" class="mb-4">
+  <div class="flex flex-column gap-3">
+    <!-- Selezione della Modalità di Ricerca -->
+    <div class="flex gap-2 mb-2">
+      <p-button 
+        label="Ricerca per Codice Fiscale" 
+        [outlined]="searchMode() !== 'CF'" 
+        severity="info"
+        (click)="switchMode('CF')" 
+        (keydown.enter)="switchMode('CF')"
+      />
+      <p-button 
+        label="Ricerca per Anagrafica" 
+        [outlined]="searchMode() !== 'ANAGRAFICA'" 
+        severity="info"
+        (click)="switchMode('ANAGRAFICA')" 
+        (keydown.enter)="switchMode('ANAGRAFICA')"
+      />
+    </div>
+
+    <!-- Form di Ricerca -->
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="flex flex-column gap-3">
+      
+      @if (searchMode() === 'CF') {
+        <div class="flex flex-column gap-2">
+          <label for="cf">Codice Fiscale</label>
+          <input 
+            pInputText 
+            id="cf" 
+            type="text" 
+            formControlName="codiceFiscale" 
+            placeholder="Es. RSSMRA80E20H501U" 
+            style="text-transform: uppercase;"
+          />
+          @if (searchForm.get('codiceFiscale')?.hasError('pattern') && searchForm.get('codiceFiscale')?.touched) {
+            <p-message severity="error" text="Il Codice Fiscale inserito non è valido"></p-message>
+          }
+        </div>
+      } @else {
+        <div class="grid formgrid p-fluid">
+          <div class="col-12 md:col-4 flex flex-column gap-2">
+            <label for="nome">Nome</label>
+            <input pInputText id="nome" type="text" formControlName="nome" placeholder="Es. Mario" />
+          </div>
+          
+          <div class="col-12 md:col-4 flex flex-column gap-2">
+            <label for="cognome">Cognome</label>
+            <input pInputText id="cognome" type="text" formControlName="cognome" placeholder="Es. Rossi" />
+          </div>
+
+          <div class="col-12 md:col-4 flex flex-column gap-2">
+            <label for="dataNascita">Data di Nascita</label>
+            <p-datepicker 
+              id="dataNascita" 
+              formControlName="dataNascita" 
+              dateFormat="yy-mm-dd"
+              [maxDate]="maxDate"
+              placeholder="Seleziona data"
+            ></p-datepicker>
+          </div>
+        </div>
+      }
+
+      <div class="flex gap-2">
+        <p-button 
+          type="submit" 
+          label="Cerca Paziente" 
+          icon="pi pi-search" 
+          [loading]="isSearching()"
+        />
+      </div>
+    </form>
+
+    <!-- Risultati della Ricerca -->
+    @if (hasSearched()) {
+      <div class="mt-4 flex flex-column gap-3">
+        <h4>Risultati Trovati ({{ searchResults().length }})</h4>
+
+        @for (paziente of searchResults(); track paziente.id) {
+          <div class="p-3 border-1 surface-border border-round flex justify-content-between align-items-center surface-card">
+            <div>
+              <div class="font-bold text-lg">{{ paziente.nome }} {{ paziente.cognome }}</div>
+              <div class="text-sm text-color-secondary">
+                CF: <strong>{{ paziente.codiceFiscale }}</strong> | Data Nascita: {{ paziente.dataNascita }}
+              </div>
+            </div>
+            
+            <p-button 
+              label="Seleziona e Compila Form" 
+              icon="pi pi-check" 
+              severity="success" 
+              (click)="selectPatient(paziente)"
+              (keydown.enter)="selectPatient(paziente)"
+            />
+          </div>
+        } @empty {
+          <p-message severity="warn" text="Nessun paziente trovato negli archivi con questi dati."></p-message>
+        }
+
+        <!-- Pulsante obbligatorio per la creazione da zero -->
+        <div class="mt-2">
+          <p-button 
+            label="Inserisci Nuovo Paziente (Da Zero)" 
+            icon="pi pi-user-plus" 
+            severity="help" 
+            [outlined]="true"
+            (click)="startNewPatient()"
+            (keydown.enter)="startNewPatient()"
+          />
+        </div>
+      </div>
+    }
+  </div>
+</p-fieldset>

@@ -1,0 +1,40 @@
+:host {
+  display: block;
+  margin-bottom: 1.5rem;
+
+  // Personalizzazione del Fieldset
+  p-fieldset {
+    .p-fieldset {
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+  }
+
+  // Pulsanti di selezione modalità (CF / Anagrafica)
+  .flex.gap-2 {
+    button {
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  // Card per la lista dei risultati
+  .surface-card {
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      border-color: var(--primary-color, #3b82f6) !important;
+      background-color: var(--surface-hover, #f8fafc);
+    }
+  }
+
+  // Responsive padding per input
+  input[pInputText] {
+    width: 100%;
+  }
+
+  // Utility spacing per i messaggi di errore
+  p-message {
+    display: block;
+    margin-top: 0.25rem;
+  }
+}

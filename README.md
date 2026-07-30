@@ -128,6 +128,8 @@ Allinterno della cartella `docs/` sono presenti documenti dettagliati riguardant
 Questo progetto è concesso in licenza sotto la Licenza MIT - vedere il file [LICENSE](LICENSE) per i dettagli.
 
 👉 **[Relazione Tecnica della Task 1](docs/RELAZIONE_TASK-1.md)**
+👉 **[Relazione Tecnica della Task 2](docs/RELAZIONE_TASK-2-UF15.md)**
+
 
 
 * 📄 [Documentazione Migrazione Infrastrutturale](docs/RELAZIONE_TASK-3-UF14.md)
